@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+Database.config
 
 # Build results
 [Dd]ebug/
