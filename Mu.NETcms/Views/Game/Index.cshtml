@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Game Panel";
+}
+
+<h2>Game account overview</h2>
+<h3>Characters:</h3>
+<h4>@ViewBag.StatusMessage</h4>
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Class</td>
+            <td>Level</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in ViewBag.Chars)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.Class</td>
+                <td>@c.cLevel</td>
+                @if (@Mu.NETcms.Logic.GameManager.Create().IsCharacterReset(@c.Name))
+                {
+                    <td>
+                        @using (Html.BeginForm("Reset", "Game"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("name", (string)c.Name);
+                            <input type="submit" value="Reset" />
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
