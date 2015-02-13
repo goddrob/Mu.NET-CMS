@@ -8,8 +8,7 @@ using System.Web;
 
 namespace Mu.NETcms.Models
 {
-    public class GameModels
-    {
+    
         public class GameDbContext : DbContext
         {
             public GameDbContext()
@@ -18,6 +17,8 @@ namespace Mu.NETcms.Models
                 
             }
             public DbSet<Account> Accounts { get; set; }
+            public DbSet<AccountCharacter> AccountsEx { get; set; }
+            public DbSet<Character> Characters { get; set; }
         }
         [Table("MEMB_INFO")]
         public class Account
@@ -34,5 +35,43 @@ namespace Mu.NETcms.Models
             public string bloc_code { get; set; }
             public string ctl1_code { get; set; }
         }
-    }
+        [Table("AccountCharacter")]
+        public class AccountCharacter
+        {
+            [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+            public int Number { get; set; }
+            [Key]
+            public string Id { get; set; }
+            public string GameID1 { get; set; }
+            public string GameID2 { get; set; }
+            public string GameID3 { get; set; }
+            public string GameID4 { get; set; }
+            public string GameID5 { get; set; }
+            public string GameIDC { get; set; }
+        }
+        [Table("Character")]
+        public class Character
+        {
+            public string AccountID { get; set; }
+            [Key]
+            public string Name { get; set; }
+            public int cLevel { get; set; }
+            public int LevelUpPoint { get; set; }
+            public int Class { get; set; }
+            public int Experience { get; set; }
+            public int Strength { get; set; }
+            public int Dexterity { get; set; }
+            public int Vitality { get; set; }
+            public int Energy { get; set; }
+            public int MapNumber { get; set; }
+            public int MapPosX { get; set; }
+            public int MapPosY { get; set; }
+            public int CtlCode { get; set; }
+            public int Resets { get; set; }
+            public int GrandResets { get; set; }
+            public int Money { get; set; }
+
+
+        }
+    
 }

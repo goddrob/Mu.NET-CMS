@@ -99,7 +99,7 @@ namespace Mu.NETcms
             string pattern = @"^[a-zA-Z0-9]*$";
             if(String.IsNullOrEmpty(user.GameId) || !Regex.IsMatch(user.GameId,pattern) || user.GameId.Length < 6 || user.GameId.Length > 10)
                 return IdentityResult.Failed("Invalid game id.");
-            using (var v =  new GameModels.GameDbContext()){
+            using (var v =  new GameDbContext()){
                 if (v.Accounts.Find(user.GameId)!=null) return IdentityResult.Failed("Game id unavailable.");
             }
             
@@ -107,9 +107,9 @@ namespace Mu.NETcms
             var task = await base.CreateAsync(user, password);
             if (task.Succeeded)
             {
-                using (var c = new GameModels.GameDbContext())
+                using (var c = new GameDbContext())
                 {
-                    c.Accounts.Add(new GameModels.Account()
+                    c.Accounts.Add(new Account()
                     {
                         memb___id = user.GameId,
                         memb__pwd = password,
@@ -126,6 +126,7 @@ namespace Mu.NETcms
             return task;
             
         }
+        override
         public async Task<IdentityResult> ResetPasswordAsync(string Id, string token, string password)
         {
             var task = await base.ResetPasswordAsync(Id, token, password);
