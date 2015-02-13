@@ -28,15 +28,12 @@ namespace Mu.NETcms.Logic
         }
         public bool IsCharacterReset(string character)
         {
-            bool isDynamic = Boolean.Parse(ConfigurationManager.AppSettings["isCostDynamic"]);
             int resetLevel = Int32.Parse(ConfigurationManager.AppSettings["ResetLevel"]);
-            int resetCost = Int32.Parse(ConfigurationManager.AppSettings["ResetCost"]);
-            
+           
             using (var c = new GameDbContext()){
                 Character ch = c.Characters.Find(character);
                 if (ch.cLevel < resetLevel) return false;
-                else if (isDynamic && ch.Money < (resetCost * ch.Resets)) return false;
-                else if (!isDynamic && ch.Money < resetCost) return false;
+                else if (ch.Money < GetResetCost(ch.Resets)) return false;
                 else return true;
             }
             //return false;
@@ -44,10 +41,8 @@ namespace Mu.NETcms.Logic
         public GameMessageId ResetCharacter(string user, string character)
         {
             if (!IsCharacterOwned(user,character)) return GameMessageId.Error;
-
-            bool isDynamic = Boolean.Parse(ConfigurationManager.AppSettings["isCostDynamic"]);
+            if (IsConnected(user)) return GameMessageId.AccountConnected;
             int resetLevel = Int32.Parse(ConfigurationManager.AppSettings["ResetLevel"]);
-            int resetCost = Int32.Parse(ConfigurationManager.AppSettings["ResetCost"]);
             int resetCap = Int32.Parse(ConfigurationManager.AppSettings["ResetMax"]);
 
             using (var c = new GameDbContext())
@@ -58,22 +53,51 @@ namespace Mu.NETcms.Logic
                 if (ch.cLevel < resetLevel)
                     return GameMessageId.ResetFailLevel;
                 else if (ch.Resets >= resetCap) return GameMessageId.ResetFailCap;
-                else if ((isDynamic && ch.Money < (resetCost * ch.Resets))
-                    || (!isDynamic && ch.Money < resetCost)) return GameMessageId.ResetFailZen;
+                else if (ch.Money < GetResetCost(ch.Resets)) return GameMessageId.ResetFailZen;
                 else
                 {
-                    //TO-DO: reset
+                    //db.Users.Attach(updatedUser);
+                    //var entry = db.Entry(updatedUser);
+                    //entry.Property(e => e.Email).IsModified = true;
+                    //// other changed properties
+                    //db.SaveChanges();
+                    ch.cLevel = 1;
+                    ch.Experience = 0;
+                    ch.Money -= GetResetCost(ch.Resets);
+                    ch.MapNumber = 0;
+                    ch.MapPosX = 182;
+                    ch.MapPosY = 128;
+                    ch.Resets += 1;
+                    c.SaveChanges();
+                    //c.Entry(ch).GetDatabaseValues();
                     return GameMessageId.ResetSuccess;
                 }
 
             }
         }
-        public ICollection<Character> getCharsFor(string user)
+        public int GetResetCost(int resets){
+            bool isDynamic = Boolean.Parse(ConfigurationManager.AppSettings["isCostDynamic"]);
+            int resetCost = Int32.Parse(ConfigurationManager.AppSettings["ResetCost"]);
+            if (!isDynamic) return resetCost;
+            else return (resets + 1) * resetCost;
+        }
+        public ICollection<Character> GetCharsFor(string user)
         {
             using (var c = new GameDbContext())
             {
                 return c.Characters.Where(a => a.AccountID == user).ToArray<Character>();
             }
         }
+        public bool IsConnected(string user)
+        {
+            using (var c = new GameDbContext())
+            {
+                var temp = c.Status.Find(user);
+                if (temp != null && temp.ConnectStat == 1) return true;
+            }
+
+            return false;
+        }
+
     }
 }

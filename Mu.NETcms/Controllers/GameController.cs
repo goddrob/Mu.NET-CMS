@@ -40,21 +40,23 @@ namespace Mu.NETcms.Controllers
         {
             ViewBag.StatusMessage =
                 messageId == GameMessageId.ResetSuccess ? "Character successfully reseted."
+                : messageId == GameMessageId.AccountConnected ? "You need to log out from the game first."
                 : messageId == GameMessageId.ResetFailLevel ? "No reset level."
                 : messageId == GameMessageId.ResetFailZen ? "Not enough zen."
                 : messageId == GameMessageId.ResetFailCap ? "Reached maximum resets."
                 : messageId == GameMessageId.Error ? "An error has occured."
-                : "test";
+                : "";
 
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            ViewBag.Chars = GameManager.Create().getCharsFor(user.GameId);            
+            ViewBag.Chars = GameManager.Create().GetCharsFor(user.GameId);            
             return View();
         }
         //
         //POST: /Game/Reset
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Reset(string name)
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());            
             GameMessageId response = GameManager.Create().ResetCharacter(user.GameId, name);
             return RedirectToAction("Index", new { messageId = response});
         }

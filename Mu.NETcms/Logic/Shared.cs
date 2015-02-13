@@ -29,6 +29,7 @@ namespace Mu.NETcms.Logic
         ResetFailZen,
         ResetFailLevel,
         ResetFailCap,
+        AccountConnected,
         Error
     }
 }
