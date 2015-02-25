@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Mu.NETcms.Models;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Mu.NETcms.Controllers
 {
@@ -48,9 +49,12 @@ namespace Mu.NETcms.Controllers
                 : "";
 
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            ViewBag.Chars = GameManager.Create().GetCharsFor(user.GameId);            
+            ViewBag.Chars = GameManager.Create().GetCharsFor(user.GameId);
+            byte[] vault = GameManager.Create().GetVaultFor(user.GameId).Items;
+            ViewBag.Vault = ItemManager.VaultToList(vault);
             return View();
         }
+        
         //
         //POST: /Game/Reset
         [ValidateAntiForgeryToken]

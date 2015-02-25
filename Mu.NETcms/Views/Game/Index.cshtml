@@ -6,7 +6,7 @@
 <h2>Game account overview</h2>
 <h3>Characters:</h3>
 <h4>@ViewBag.StatusMessage</h4>
-<table>
+<table cellspacing="10" cellpadding="10">
     <thead>
         <tr>
             <td>Name</td>
@@ -20,7 +20,7 @@
         {
             <tr>
                 <td>@c.Name</td>
-                <td>@c.Class</td>
+                <td>@Mu.NETcms.Logic.ClassTranslator.ToString(c.Class)</td>
                 <td>@c.cLevel</td>
                 @if (@Mu.NETcms.Logic.GameManager.Create().IsCharacterReset(@c.Name))
                 {
@@ -40,5 +40,18 @@
             </tr>
         }
     </tbody>
+    
 </table>
+@foreach (var i in ViewBag.Vault)
+{
+    if (i.isEmpty == false) { 
+    <h3>
+        @i.Type | @i.Id | @i.Level | @i.HasLuck | @i.HasSkill | @i.Option | @i.AncientCode | Ex: @i.ExcelentCode
+        @foreach (var opt in i.ExcOptions)
+        {
+            <h4>@opt</h4>
+        }
+    </h3>
+    }
+}
 

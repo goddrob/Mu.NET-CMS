@@ -5,24 +5,7 @@ using System.Web;
 
 namespace Mu.NETcms.Logic
 {
-    public class ResetResult
-    {
-        public bool Succeeded { get; set; }
-        public string message { get; set; }
-        public bool Failed(string error)
-        {
-            message = error;
-            Succeeded = false;
-            return !Succeeded;
-        }
-        public ResetResult Create(bool state, string msg)
-        {
-            var rr = new ResetResult();
-            rr.Succeeded = state;
-            rr.message = msg;
-            return rr;
-        }
-    }
+    
     public enum GameMessageId
     {
         ResetSuccess,
@@ -31,5 +14,33 @@ namespace Mu.NETcms.Logic
         ResetFailCap,
         AccountConnected,
         Error
+    }
+
+    public class ClassTranslator
+    {
+        static public string ToString(int code)
+        {
+            string var =
+                code == 0 ? "Dark Wizard"
+                : code == 1 ? "Soul Master"
+                : code == 3 ? "Grand Master"
+                : code == 16 ? "Dark Knight"
+                : code == 17 ? "Blade Knight"
+                : code == 19 ? "Blade Master"
+                : code == 32 ? "Elf"
+                : code == 33 ? "Muse Elf"
+                : code == 35 ? "High Elf"
+                : code == 48 ? "Magic Gladiator"
+                : code == 50 ? "Duel Master"
+                : code == 64 ? "Dark Lord"
+                : code == 66 ? "Lord Emperor"
+                : code == 80 ? "Summoner"
+                : code == 81 ? "Bloody Summoner"
+                : code == 83 ? "Dimension Master"
+                : code == 96 ? "Rage Fighter"
+                : code == 98 ? "Fist Master"
+                : "Unknown";
+            return var;
+        }
     }
 }

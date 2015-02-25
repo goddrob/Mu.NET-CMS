@@ -20,6 +20,7 @@ namespace Mu.NETcms.Models
         public DbSet<AccountCharacter> AccountsEx { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<AccountStat> Status { get; set; }
+        public DbSet<Warehouse> Vaults { get; set; }
     }
     [Table("MEMB_INFO")]
     public class Account
@@ -84,6 +85,14 @@ namespace Mu.NETcms.Models
         public string IP { get; set; }
         public DateTime ConnectTM { get; set; }
         public DateTime DisConnectTM { get; set; }
+    }
+    [Table("warehouse")]
+    public class Warehouse
+    {
+        [Key]
+        public string AccountID { get; set; }
+        public Byte[] Items { get; set; }
+        public int Money { get; set; }
     }
 
 }

@@ -98,6 +98,13 @@ namespace Mu.NETcms.Logic
 
             return false;
         }
+        public Warehouse GetVaultFor(string account)
+        {
+            using (var c = new GameDbContext())
+            {
+                return c.Vaults.Find(account);
+            }
+        }
 
     }
 }
