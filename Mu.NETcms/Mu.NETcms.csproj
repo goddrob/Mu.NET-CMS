@@ -196,6 +196,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="MuSettings.config" />
     <Content Include="Database.config" />
+    <None Include="Properties\PublishProfiles\Aegis.pubxml" />
     <None Include="Properties\PublishProfiles\File.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -53,7 +53,8 @@ namespace Mu.NETcms.Logic
         public List<string> ExcOptions { get; set; }
         public static List<string> DecodeExcOpt(int code)
         {
-            int rcode = Math.Abs(code - 64);
+            int rcode = code;
+            if (code > 1) rcode = Math.Abs(code - 64);
             List<string> options = new List<string>();
             if (rcode >= 64)
             {
