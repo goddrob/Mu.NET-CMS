@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Mu.NETcms.Models.NewsPost>
+@{
+    ViewBag.Title = "News List";
+}
+@section headscripts {
+
+}
+<p>@Html.ActionLink("Create", "NewsCreate")</p>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var n in Model)
+        {
+            <tr>
+                <td>@n.Title</td>
+                <td>@n.Author</td>
+                <td>@n.Date</td>
+                <td>@Html.ActionLink("Edit", "NewsEdit", new { id = n.Id })</td>
+                <td>@Html.ActionLink("Remove", "NewsDelete", new { id = n.Id })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

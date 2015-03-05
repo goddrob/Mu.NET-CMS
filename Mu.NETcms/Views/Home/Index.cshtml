@@ -1,15 +1,16 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Mu.NETcms.Models.NewsPost>
+@{
+    ViewBag.Title = "News";
 }
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h1>Mu.NET</h1>
     <p class="lead">MVC5 EF6</p>
     <p><a href="http://dev.semprog.se" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <div class="row">
-    @*<div class="col-md-4">
+    <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
             ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
@@ -27,5 +28,46 @@
         <h2>Web Hosting</h2>
         <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>*@
-</div>
+    </div>
+
+
+</div>*@
+<ul id="general_news">
+    @foreach (var post in Model)
+    {
+        <li>
+            <div class="image"><a href="#"><img alt="alt_example" src="~/Content/Themes/red/images/media/full/1.jpg" /></a></div>
+            <ul class="social_share">
+                <li><a href="#"><img alt="alt_example" src="~/Content/Themes/red/images/fbk.png" border="0" /></a></li>
+                @*<li><a href="#"><img alt="alt_example" src="~/Content/Themes/red/images/twitter.png" border="0" /></a></li>*@
+                <li><a href="#"><img alt="alt_example" src="~/Content/Themes/red/images/more.png" border="0" /></a></li>
+            </ul>
+            <div class="info">
+                <div class="comments"> @post.Shares </div>
+                <h2><a href="#">@post.Title</a></h2>
+                <div class="date_n_author">@post.Date.ToString("d MMMM yyyy"), by @post.Author</div>
+                @Html.Raw(post.HtmlContent.Split(new string[] {"<hr />","<hr/>"},StringSplitOptions.None)[0])
+                @*<a href="#" class="read_more2">read more</a>*@
+                @Html.ActionLink("read more", "ViewPost", new { id = @post.Id }, new {@class="read_more2"})
+            </div>
+            <div class="clear">
+            </div>
+        </li>
+    }
+</ul>
+
+@section scripts {
+@Scripts.Render("~/bundles/slider")
+<!--******* Javascript Code for the Main banner *******-->
+<script type="text/javascript">
+    $(function () {
+
+        $('#da-slider').cslider({
+            autoplay: true,
+            bgincrement: 450
+        });
+
+    });
+</script>
+
+}

@@ -1,5 +1,6 @@
 namespace Mu.NETcms.Migrations
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,10 @@ namespace Mu.NETcms.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            IdentityRole role = new IdentityRole();
+            role.Name = "Administrator";
+            context.Roles.Add(role);
+            context.SaveChanges();
         }
     }
 }

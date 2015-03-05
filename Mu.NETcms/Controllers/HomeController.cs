@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Mu.NETcms.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mu.NETcms.Logic;
 
 namespace Mu.NETcms.Controllers
 {
@@ -11,9 +13,13 @@ namespace Mu.NETcms.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            return View(GameCache.GetServerNews());
         }
 
+        public ActionResult ViewPost(int id)
+        {
+            return View(GameCache.GetPostById(id));
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Mu.NETcms.Models;
 using System.Threading.Tasks;
 using System.Text;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Mu.NETcms.Controllers
 {
@@ -52,6 +53,8 @@ namespace Mu.NETcms.Controllers
             ViewBag.Chars = GameManager.Create().GetCharsFor(user.GameId);
             byte[] vault = GameManager.Create().GetVaultFor(user.GameId).Items;
             ViewBag.Vault = ItemManager.VaultToList(vault);
+            IdentityUserRole iur = user.Roles.First();
+            ViewBag.Role = iur.RoleId;
             return View();
         }
         

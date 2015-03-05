@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    
+    <div class="categories">
+        <div class="header"><a href="#">Logged in: @User.Identity.GetUserName()</a></div>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.IsInRole("Administrator"))
+            {
+                <li>@Html.ActionLink("Admin Panel", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Administration" })</li>
+            }
+            <li>@Html.ActionLink("Characters", "Index", "Game", routeValues: null, htmlAttributes: new { title = "Characters" })</li>
+            <li>@Html.ActionLink("Manage credits", "Credits", "Game", routeValues: null, htmlAttributes: new { title = "Credit Management" })</li>
+            <li>@Html.ActionLink("Manage account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Account Management" })</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        </ul>
+        }
+    </div>
+}
+else
+{
+    <div class="categories">
+        <div class="header"><a href="#">Login</a></div>
+        <ul class="nav navbar-nav navbar-right">
+             <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+             <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
+    </div>
+}
+<div class="normal">
+    <div class="header"><a href="#">Server status</a></div>
+    <p>Aegis-PVP 25x Online</p>
+    <p>Aegis-Non-PVP 20x Online</p>
+</div>
+<div class="normal">
+    <div class="header"><a href="#">Find us on Facebook!</a></div>
+    <div class="fb-like-box" data-href="https://www.facebook.com/pages/Aegis-Mu-Online/188649631151877" data-width="330" data-height="250" data-colorscheme="dark" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
+</div>

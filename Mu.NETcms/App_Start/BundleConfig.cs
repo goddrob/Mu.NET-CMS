@@ -26,6 +26,18 @@ namespace Mu.NETcms
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/themes/red").Include(
+                "~/Content/Themes/red/stylesheets/main.css",
+                "~/Content/Themes/red/stylesheets/devices.css",
+                "~/Content/Themes/red/stylesheets/paralax_slider.css",
+                "~/Content/Themes/red/stylesheets/post.css",
+                "~/Content/Themes/red/stylesheets/jquery.fancybox.css?v=2.1.2"));
+
+            bundles.Add(new ScriptBundle("~/bundles/slider").Include(
+                "~/Content/Themes/red/javascript/jquery.cslider.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fancybox").Include(
+                "~/Content/Themes/red/javascript/jquery.fancybox.js?v=2.1.3"));
         }
     }
 }
