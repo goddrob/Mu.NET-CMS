@@ -21,6 +21,8 @@ namespace Mu.NETcms.Models
         public DbSet<Character> Characters { get; set; }
         public DbSet<AccountStat> Status { get; set; }
         public DbSet<Warehouse> Vaults { get; set; }
+        public DbSet<Guild> Guilds { get; set; }
+        public DbSet<GuildMember> GuildMembers { get; set; }
     }
     [Table("MEMB_INFO")]
     public class Account
@@ -93,6 +95,21 @@ namespace Mu.NETcms.Models
         public string AccountID { get; set; }
         public Byte[] Items { get; set; }
         public int Money { get; set; }
+    }
+    [Table("Guild")]
+    public class Guild
+    {
+        [Key]
+        public string G_Name { get; set; }
+        public Byte[] G_Mark { get; set; }
+        public string G_Master { get; set; }
+    }
+    [Table("GuildMember")]
+    public class GuildMember
+    {
+        [Key]
+        public string Name { get; set; }
+        public string G_Name { get; set; }
     }
 
 }

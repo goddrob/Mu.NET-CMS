@@ -1,0 +1,140 @@
+﻿#rank_table {
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 550px;
+    /* Table reset stuff */
+    border-collapse: collapse; border-spacing: 0;
+}
+#rank_table td, #rank_table th {  border: 0 none; height: 30px; }
+			
+#rank_table th {
+  /* Gradient Background */
+	background: linear-gradient(#333 0%,#444 100%);
+	color: #FFF; font-weight: bold;
+	height: 40px;
+}
+		
+#rank_table td { background: #FAFAFA; text-align: center; }
+
+#rank_table tr:hover td:first-child{
+    background:#e50505;
+    color:#fff;
+}
+#rank_table tr:hover td{
+    color:#e50505;
+}
+/* Zebra Stripe Rows */
+		
+#rank_table tr:nth-child(even) td { background: #EEE; } 
+#rank_table tr:nth-child(odd) td { background: #FDFDFD; }
+
+/* First-child blank cells! */
+#rank_table tr td:first-child, #rank_table tr th:first-child { 
+	background: none; 
+	font-style: italic;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: right;
+	padding-right: 10px;
+	width: 10px; 
+}
+
+/* Add border-radius to specific cells! */
+#rank_table tr:first-child th:nth-child(2) { 
+  border-radius: 5px 0 0 0; 
+} 
+
+#rank_table tr:first-child th:last-child { 
+  border-radius: 0 5px 0 0; 
+}
+/*// GUILD TABLE*/
+#guild_table{
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 550px;
+    /* Table reset stuff */
+    border-collapse: collapse; border-spacing: 0;
+}
+#guild_table th {  
+    border: 0 none; 
+    height: 30px;
+    background: linear-gradient(#333 0%,#444 100%);
+	color: #FFF; font-weight: bold;
+	height: 40px;
+}
+#guild_table tr td:first-child, #guild_table tr th:first-child { 
+	background: none; 
+	font-style: italic;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: right;
+	/*padding-right: 10px;
+	width: 10px;*/ 
+}
+
+#guild_table tr:first-child th:nth-child(2) { 
+  border-radius: 5px 0 0 0; 
+}
+#guild_table tr:first-child th:last-child { 
+  border-radius: 0 5px 0 0; 
+}
+#guild_table tr td {
+    background: #FAFAFA; text-align: center;
+
+}
+
+/*CHAR TABLE*/
+
+#char_table {
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 550px;
+    /* Table reset stuff */
+    border-collapse: collapse; border-spacing: 0;
+}
+#char_table td, #char_table th {  border: 0 none; height: 30px; }
+			
+#char_table th {
+  /* Gradient Background */
+	background: linear-gradient(#333 0%,#444 100%);
+	color: #FFF; font-weight: bold;
+	height: 40px;
+}
+		
+#char_table td { background: #FAFAFA; text-align: center; }
+
+#char_table tr:hover td:first-child{
+    background:#e50505;
+    color:#fff;
+}
+#char_table tr:hover td{
+    color:#e50505;
+}
+/* Zebra Stripe Rows */
+		
+#char_table tr:nth-child(even) td { background: #EEE; } 
+#char_table tr:nth-child(odd) td { background: #FDFDFD; }
+
+/* First-child blank cells! */
+#char_table tr td:nth-last-child(-n+2), #char_table tr th:nth-last-child(-n+2) { 
+	background: none; 
+	font-style: italic;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: left;
+	/*padding-right: 10px;*/
+	width: 10px; 
+}
+
+/* Add border-radius to specific cells! */
+#char_table tr:first-child th:first-child { 
+  border-radius: 5px 0 0 0; 
+} 
+
+#char_table tr:first-child th:nth-child(5) { 
+  border-radius: 0 5px 0 0; 
+}
+#char_table form input[type=submit] {
+    width:auto;
+}
+

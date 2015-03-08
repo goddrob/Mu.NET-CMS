@@ -1,0 +1,43 @@
+﻿@model Mu.NETcms.Models.ImageViewModel
+@{
+    ViewBag.Title = "Upload Image";
+}
+
+<div id="post_wrapper">
+    <div id="header">
+        <div class="info">
+            <h2>Image upload</h2>
+            <div class="date_n_author">Choose image and category.</div>
+        </div>
+    </div>
+
+    <div id="body">
+        <form action="" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div>
+                @Html.LabelFor(m => m.fname)
+                @Html.EditorFor(m => m.fname)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.category)
+                @Html.DropDownListFor(m => m.category, new SelectList(new string[] { "news", "category" }))
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ImageUpload)
+                @Html.TextBoxFor(m => m.ImageUpload, new { type = "file" })
+            </div>
+            <button type="submit">Create</button>
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+

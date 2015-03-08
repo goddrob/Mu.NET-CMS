@@ -23,4 +23,16 @@ namespace Mu.NETcms.Models
         public string HtmlContent { get; set; }
 
     }
+    public class ImageViewModel
+    {
+        [Required]
+        [Display(Name = "File Name")]
+        public string fname { get; set; }
+        [Required]
+        [Display(Name = "Category(Subdir)")]
+        public string category { get; set; }
+        [DataType(DataType.Upload)]
+        [Display(Name = "Image Path")]
+        public HttpPostedFileBase ImageUpload { get; set; }
+    }
 }

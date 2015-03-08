@@ -38,6 +38,20 @@ namespace Mu.NETcms.Logic
             }
             //return false;
         }
+        public GameMessageId UnstuckChar(string user, string character)
+        {
+            if (!IsCharacterOwned(user, character)) return GameMessageId.Error;
+            if (IsConnected(user)) return GameMessageId.AccountConnected;
+            using (var c = new GameDbContext())
+            {
+                Character ch = c.Characters.Find(character);
+                ch.MapNumber = 0;
+                ch.MapPosX = 135;
+                ch.MapPosY = 127;
+                c.SaveChanges();
+            }
+            return GameMessageId.UnstuckSucces;
+        }
         public GameMessageId ResetCharacter(string user, string character)
         {
             if (!IsCharacterOwned(user,character)) return GameMessageId.Error;

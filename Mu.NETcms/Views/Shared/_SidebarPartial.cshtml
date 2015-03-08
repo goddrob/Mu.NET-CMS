@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using Mu.NETcms.Logic
+@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
     
@@ -32,9 +33,76 @@ else
     </div>
 }
 <div class="normal">
+    @{
+        ServerStats stats = GameCache.GetServerStats();
+    }
     <div class="header"><a href="#">Server status</a></div>
-    <p>Aegis-PVP 25x Online</p>
-    <p>Aegis-Non-PVP 20x Online</p>
+    <table class="statstable" cellspacing="5">
+        <tr>
+            <td>Version:</td>
+            <td>@stats.Version</td>
+        </tr>
+        <tr>
+            <td>EXP Rate:</td>
+            <td>25x</td>
+        </tr>
+        <tr>
+            <td>Accounts:</td>
+            <td>@stats.TotalAccounts</td>
+        </tr>
+        <tr>
+            <td>Characters:</td>
+            <td>@stats.TotalChars</td>
+        </tr>
+        <tr>
+            <td>Total Online:</td>
+            <td>@stats.OnlineAccounts</td>
+        </tr>
+    </table>
+
+
+    @*<p class="pside">Online - Aegis-PVP 25x</p>
+    <p class="pside">Online - Aegis-Non-PVP 20x</p>*@
+    
+</div>
+<div class="normal">
+    <div class="header"><a href="#">Top 5</a></div>
+    <div class="tab-container">
+        <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1">Resets</li>
+            <li class="tab-link" data-tab="tab-2">Events</li>
+            <li class="tab-link" data-tab="tab-3">Guilds</li>
+        </ul>
+
+        <div id="tab-1" class="tab-content current">
+                <table class="toptable" cellspacing="3">
+                    <tr>
+                        <th></th><th>LVL</th><th>RR</th><th>GR</th>
+                    </tr>
+                   @foreach(var chr in Mu.NETcms.Logic.GameCache.TopChar(5)){
+                       <tr>
+                           <td>@chr.Name</td><td>@chr.Level</td><td>@chr.Resets</td><td>@chr.GrandResets</td>
+                       </tr>
+                   }
+                </table>
+        </div>
+        <div id="tab-2" class="tab-content">
+            Not available.
+        </div>
+        <div id="tab-3" class="tab-content">
+            <table class="topgtable" cellspacing="3">
+                <tr>
+                    <th></th><th></th><th>RR</th>
+                </tr>
+                @foreach (var g in Mu.NETcms.Logic.GameCache.TopGuild(5))
+                {
+                    <tr>
+                        <td>@Html.Raw(@Mu.NETcms.Logic.GMarkUtil.ToTableString(g.Mark, 4))</td><td>@g.Name</td><td>@g.Resets</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 </div>
 <div class="normal">
     <div class="header"><a href="#">Find us on Facebook!</a></div>

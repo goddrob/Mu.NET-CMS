@@ -1,118 +1,35 @@
 ﻿@model Mu.NETcms.Models.NewsPost
 @{
-    ViewBag.Title = "ViewPost";
+    ViewBag.Title = "News";
 }
+@{
+    var dataurl = "https://aegismu.com/Home/ViewPost/" + @Model.Id;
+    var ogtitle = "Aegis Mu" + @Model.Title;
+}
+@section headscripts{
+@*<meta property="og:url" content="@dataurl" />
+<meta property="fb:app_id" content="407985972554831" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="@ogtitle" />
+<meta property="og:description" content="@Model.HtmlContent"/>
+<meta property="article:author" content="@Model.Author" />
+<meta property="article:publisher" content="Aegis Mu" />
+<meta property="article:published" content="@Model.Date.ToString("yyyy-MM-dd")" />
+<meta property="article:section" content="Updates" />*@
 
-
+}
 
 <div id="post_wrapper">
     <div id="header">
         <div class="info">
-
             <h2>@Model.Title</h2>
-            <div class="date_n_author">by @Model.Author in <a href="./#">Events</a>,   @Model.Date.ToString("d MMMM yyyy")</div>
+            <div class="date_n_author">by @Model.Author in <a href="http://aegismu.com">Events</a>,   @Model.Date.ToString("d MMMM yyyy")</div>
+            @*<div style="float:right;" class="fb-share-button" data-href=@dataurl data-layout="button"></div>*@
         </div>
-        <div class="image">
-            <div class="comments"> @Model.Shares </div>
-            <div class="img_in"><img alt="alt_example" src="~/Content/Themes/red/images/post/post.jpg" /></div>
-        </div>
-
     </div>
     
     <div id="body">
-        <div class="post-review">
-            <div class="overall-score"><img alt="alt_example" src="~/Content/Themes/red/images/post/stars/big.png" /></div>
-            <ul>
-                <li>Gameplay <span class="score"><img alt="alt_example" src="~/Content/Themes/red/images/post/stars/3.png" /></span></li>
-                <li>Story <span class="score"><img alt="alt_example" src="~/Content/Themes/red/images/post/stars/2.png" /></span></li>
-                <li>Graphics <span class="score"><img alt="alt_example" src="~/Content/Themes/red/images/post/stars/4.png" /></span></li>
-            </ul>
-        </div>
-        <p>Integer tincidunt tellus ut metus viverra ac sodales odio vulputate. Ut id erat neque, sit amet tristique erat. Vivamus in turpis orci, et volutpat purus. Vestibulum lacinia, arcu id varius eleifend, eros lorem iaculis massa, vitae consequat enim diam eget massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam ultrices viverra consectetur. Sed eget massa augue. Suspendisse urna lectus. Vivamus venenatis quam at metus aliquam semper. Aliquam auctor consequat ligula vitae feugiat. Morbi lobortis nisi eget ligula varius at bibendum tortor condimentum. Duis nunc lectus, lobortis quis sollicitudin vel, hendrerit et augue. Curabitur porta auctor augue. Cras dignissim imperdiet sem at sollicitudin. Integer vel massa massa. Duis hendrerit dui sed nibh vehicula ut pharetra mauris consectetur. Proin tempus fringilla nulla at convallis.</p>
-        <p>Mauris eu lacus dolor, sed vestibulum nisl. Quisque commodo pellentesque est, nec vehicula quam gravida eget. Donec varius sollicitudin neque ut facilisis. Aliquam dignissim commodo semper. Vestibulum vel nunc elit, vel porttitor diam. Vivamus tincidunt mauris non ante faucibus bibendum. Mauris rhoncus venenatis tellus, eget auctor nisl volutpat nec. Aenean sed nisi urna. Fusce convallis hendrerit augue a scelerisque.Vivamus venenatis quam at metus aliquam semper. Aliquam auctor consequat ligula vitae feugiat. Morbi lobortis nisi eget ligula varius at bibendum tortor condimentum. Duis nunc lectus, lobortis quis sollicitudin vel, hendrerit et augue. Curabitur porta auctor augue. Cras dignissim imperdiet sem at sollicitudin. Integer vel massa massa. Duis hendrerit dui sed nibh vehicula ut pharetra mauris consectetur. Proin tempus fringilla nulla at convallis.</p>
+        @Html.Raw(@Model.HtmlContent)
     </div>
-    <div id="comments">
-        <div class="header">5 COMMENTS <span>ON "<span class="cyan">INTERDUM ULTRICES AUGUE</span>"</span></div>
-
-        <ul>
-            <li>
-                <img alt="alt_example" class="indent" src="./images/post/indent.jpg" />
-                <div class="avatar"><img alt="alt_example" src="./images/post/avatar.png" /></div>
-                <div class="comment">
-                    <p><strong>Bob</strong> <small>April 12, 2011 at 12:01 am - <a href="#">Reply</a></small></p>
-                    Duis nunc lectus, lobortis quis sollicitudin vel, hendrerit et augue. Curabitur porta auctor augue. Cras dignissim imperdiet sem at sollicitudin.
-                </div>
-                <div class="clear"></div>
-            </li>
-
-            <li>
-                <ul>
-                    <li>
-                        <img alt="alt_example" class="indent" src="./images/post/indent.jpg" />
-                        <div class="avatar"><img alt="alt_example" src="./images/post/avatar.png" /></div>
-                        <div class="comment">
-                            <p><strong>Bob</strong> <small>April 12, 2011 at 12:01 am - <a href="#">Reply</a></small></p>
-                            Morbi lobortis nisi eget ligula varius at bibendum tortor condimentum.
-                        </div>
-                        <div class="clear"></div>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <ul>
-                    <li>
-                        <img alt="alt_example" class="indent" src="./images/post/indent.jpg" />
-                        <div class="avatar"><img alt="alt_example" src="./images/post/avatar.png" /></div>
-                        <div class="comment">
-                            <p><strong>Bob</strong> <small>April 12, 2011 at 12:01 am - <a href="#">Reply</a></small></p>
-                            Aliquam auctor consequat ligula vitae feugiat. Morbi lobortis nisi eget ligula varius at bibendum tortor condimentum. Duis nunc lectus.
-                        </div>
-                        <div class="clear"></div>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <img alt="alt_example" class="indent" src="./images/post/indent.jpg" />
-                <div class="avatar"><img alt="alt_example" src="./images/post/avatar.png" /></div>
-                <div class="comment">
-                    <p><strong>Bob</strong> <small>April 12, 2011 at 12:01 am - <a href="#">Reply</a></small></p>
-                    Morbi lobortis nisi eget ligula varius at bibendum tortor condimentum hendrerit et augue. Curabitur porta auctor augue. Cras dignissim imperdiet sem at sollicitudin.
-                </div>
-                <div class="clear"></div>
-            </li>
-        </ul>
-
-    </div>
-    <!-- Comments end -->
-    <!-- Leave a response Start -->
-    <div id="response">
-        <div class="header">leave a response</div>
-
-        <form id="form" action="submit">
-            <div class="form_left">
-
-                <label>Name <small><em>(required)</em></small></label>
-                <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] text-input" id="name" />
-
-                <label>Email <small><em>(required)</em></small></label>
-                <input name="email" type="text" class="validate[required,custom[email]] text-input" id="email" />
-
-                <label>Website</label>
-                <input type="text" name="web" id="web" />
-
-            </div>
-            <div class="form_right">
-                <p class="text">
-                    <label>Your Message <small><em>(required)</em></small></label>
-                    <textarea name="text" class="validate[required,length[6,300]] text-input" id="comment" cols="10" rows="10"></textarea>
-                </p>
-            </div>
-
-            <div class="form_submit">
-                <input type="submit" value="post" class="read_more2" />
-            </div>
-        </form>
-
-    </div>
+    
 </div>

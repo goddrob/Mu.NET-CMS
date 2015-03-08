@@ -46,18 +46,26 @@ namespace Mu.NETcms.Controllers
                 : messageId == GameMessageId.ResetFailLevel ? "No reset level."
                 : messageId == GameMessageId.ResetFailZen ? "Not enough zen."
                 : messageId == GameMessageId.ResetFailCap ? "Reached maximum resets."
+                : messageId == GameMessageId.UnstuckSucces ? "Character succesfully moved."
                 : messageId == GameMessageId.Error ? "An error has occured."
                 : "";
 
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             ViewBag.Chars = GameManager.Create().GetCharsFor(user.GameId);
-            byte[] vault = GameManager.Create().GetVaultFor(user.GameId).Items;
-            ViewBag.Vault = ItemManager.VaultToList(vault);
-            IdentityUserRole iur = user.Roles.First();
-            ViewBag.Role = iur.RoleId;
+            //byte[] vault = GameManager.Create().GetVaultFor(user.GameId).Items;
+            //ViewBag.Vault = ItemManager.VaultToList(vault);
+            //IdentityUserRole iur = user.Roles.First();
+            //ViewBag.Role = iur.RoleId;
             return View();
         }
         
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Unstuck(string name)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            GameMessageId response = GameManager.Create().UnstuckChar(user.GameId, name);
+            return RedirectToAction("Index", new { messageId = response });
+        }
         //
         //POST: /Game/Reset
         [ValidateAntiForgeryToken]
@@ -66,6 +74,10 @@ namespace Mu.NETcms.Controllers
             ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());            
             GameMessageId response = GameManager.Create().ResetCharacter(user.GameId, name);
             return RedirectToAction("Index", new { messageId = response});
+        }
+        public ActionResult Credits()
+        {
+            return View();
         }
     }
 }

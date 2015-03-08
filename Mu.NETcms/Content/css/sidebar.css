@@ -1,0 +1,77 @@
+﻿body {
+}
+
+.statstable  {
+    margin:10px auto;
+}
+.statstable tr td:last-child {
+    /*text-align:right;*/
+    text-align:center;
+}
+.pside {
+    margin-left:30px;
+}
+
+.toptable {
+    width:70%;
+    margin:auto;
+}
+.toptable tr th {
+    font-style:italic;
+    font-size:smaller;
+}
+.toptable tr td:not(:first-child){
+    text-align:center;
+}
+/*.toptable tr td:first-child{
+    text-align:right;
+}*/
+.topgtable {
+    width:70%;
+    margin:auto;
+}
+.topgtable tr th {
+    font-style:italic;
+    font-size:smaller;
+}
+.topgtable tr td:first-child{
+    text-align:right;
+}
+.topgtable tr td:nth-child(n+3){
+    text-align:center;
+}
+
+
+.tab-container{
+    margin-top:10px;
+    /*margin: 10px auto;*/
+}
+ul.tabs {
+
+    margin: 0px;
+    /*padding: 0px;*/
+    list-style: none;
+}
+
+    ul.tabs li {
+        background: none;
+        color: #fff;
+        display: inline-block;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        ul.tabs li.current {
+            /*background: #fff;*/
+            color: #ff5429;
+        }
+
+.tab-content {
+    display: none;
+    /*background: #ededed;*/
+    padding: 15px;
+}
+
+    .tab-content.current {
+        display: inherit;
+    }

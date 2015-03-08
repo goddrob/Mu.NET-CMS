@@ -8,9 +8,10 @@ using Mu.NETcms.Logic;
 
 namespace Mu.NETcms.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        [AllowAnonymous]
+        
         public ActionResult Index()
         {
             return View(GameCache.GetServerNews());
@@ -20,10 +21,8 @@ namespace Mu.NETcms.Controllers
         {
             return View(GameCache.GetPostById(id));
         }
-        public ActionResult About()
+        public ActionResult Download()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

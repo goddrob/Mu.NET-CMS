@@ -1,15 +1,18 @@
-﻿using Mu.NETcms.Models;
+﻿using Mu.NETcms.Logic;
+using Mu.NETcms.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Mu.NETcms.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
-        [Authorize(Roles = "Administrator")]
+        
         // GET: Admin
         public ActionResult Index()
         {
@@ -44,6 +47,7 @@ namespace Mu.NETcms.Controllers
                     c.News.Add(npost);
                     c.SaveChanges();
                 }
+                GameCache.ReCache(false, false, true);
             }
             
             return RedirectToAction("NewsList","Admin");
@@ -76,6 +80,7 @@ namespace Mu.NETcms.Controllers
                     oPost.Date = DateTime.Now;
                     c.SaveChanges();
                 }
+                GameCache.ReCache(false, false, true);
                 return RedirectToAction("NewsList");
             }
             return View(model);
@@ -88,18 +93,43 @@ namespace Mu.NETcms.Controllers
                 c.News.Remove(c.News.Find(id));
                 c.SaveChanges();
             }
+            GameCache.ReCache(false, false, true);
             return RedirectToAction("NewsList");
         }
 
 
-
-        public void UpdateNews(NewsPost original, NewsViewModel post)
+        public ActionResult UploadImage()
         {
-            
+            return View(new ImageViewModel());
         }
-        public void AddNews(NewsViewModel post)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UploadImage(ImageViewModel model)
         {
+            var validImageTypes = new string[]{"image/gif","image/jpeg","image/pjpeg","image/png"};
+            if (model.ImageUpload == null || model.ImageUpload.ContentLength == 0)
+            {
+                ModelState.AddModelError("ImageUpload", "This field is required");
+            }
+            else if (!validImageTypes.Contains(model.ImageUpload.ContentType))
+            {
+                ModelState.AddModelError("ImageUpload", "Please choose a valid image file.");
+            }
+            if (ModelState.IsValid)
+            {
+                if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
+                {
+                    var baseDir = "~/Content/Images/" + model.category;
+                    var imagePath = Path.Combine(Server.MapPath(baseDir), model.ImageUpload.FileName);
+                    model.ImageUpload.SaveAs(imagePath);
+                }
+                
+                return RedirectToAction("Index");
+            }
 
+
+            return View(model);
         }
+        
     }
 }
