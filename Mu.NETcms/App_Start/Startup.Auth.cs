@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Mu.NETcms.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Configuration;
 
 namespace Mu.NETcms
 {
@@ -54,15 +56,17 @@ namespace Mu.NETcms
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+                
+               appId: "407985972554831",
+               appSecret: ConfigurationManager.AppSettings["facebookSecret"]);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = "249016515755-hj2llo96ublh32j6pvi8u0s2rrrq3a59.apps.googleusercontent.com",
-                ClientSecret = "TkvqYfGWEejSGNmuCzeQLG_n"
+                ClientSecret = ConfigurationManager.AppSettings["googleSecret"]
             });
+            //Add Roles
         }
     }
 }
